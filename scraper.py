@@ -8,17 +8,17 @@ countries_page = bs(countries_res.text,"lxml")
 countries_headers = ["url","name","id"]
 countries_file = open("countries.csv","a")
 countries_csv = csv.DictWriter(countries_file, fieldnames = countries_headers)
-#countries_csv.writeheader()
+countries_csv.writeheader()
 
 universities_headers = ["url","name","id","country"]
 universities_file = open("universities.csv","a")
 universities_csv = csv.DictWriter(universities_file, fieldnames = universities_headers)
-#universities_csv.writeheader()
+universities_csv.writeheader()
 
 studies_headers = ["url","name","id","university","country"]
 studies_file = open("studies.csv","a")
 studies_csv = csv.DictWriter(studies_file, fieldnames = studies_headers)
-#studies_csv.writeheader()
+studies_csv.writeheader()
 
 for c in countries_page.select("#CountryOverview li a"):
 
@@ -27,9 +27,6 @@ for c in countries_page.select("#CountryOverview li a"):
     country_id = re.search("/\d+/",country_url).group()[1:-1]
 
     print "+", country_name, "("+country_id+")"
-
-    if country_id not in ["82","83","142"]:
-        continue
 
     countries_csv.writerow({
         "url": country_url.replace(",",""),
